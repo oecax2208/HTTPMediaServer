@@ -1,0 +1,6 @@
+Example Media
+=============
+If you arrived here through the dashboard page, then you have
+correctly set up the uploading and streaming service.
+
+You can delete this file.
