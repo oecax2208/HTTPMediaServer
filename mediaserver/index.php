@@ -1,7 +1,7 @@
 <?php
 include './prv/auth.php';
 if (isAuth() > 0) {
-	echo '<p id="success">Logged in</p>';
+    //Do nothing.
 } else {
 	echo '<html><head><title>Login</title><link rel="stylesheet" href="/css/advanced/upload.css"></head><body><a href="login.php"><button class="bigbtn"><h3>Login</h3></button></a><a href="/"><button class="bigbtn"><h3>Return to homepage</h3></button></a></body></html>';
 	exit;
