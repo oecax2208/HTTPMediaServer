@@ -1,5 +1,4 @@
 <?php
-	$err = 'Unauthorized (401) - Click <a href="/">here</a> to leave';
 	include './prv/auth.php';
 
 	$a = isAuth();
@@ -11,11 +10,10 @@
 	}
 
 	requestAuth();
-	die($err);
+	die($noAuth);
 
 	function requestAuth() {
-		header('WWW-Authenticate: Basic realm="Local PMS"');
-        header('HTTP/1.0 401 Unauthorized');
+		header('WWW-Authenticate: Basic realm="Media Server"');
+        	header('HTTP/1.0 401 Unauthorized');
 	}
 
-?>

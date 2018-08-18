@@ -1,41 +1,54 @@
 <?php
-include 'check.php';
+include 'service.php';
 
-$target_dir = "./cache0";
+$target_dir = $cpath;
 $target_file = basename($_FILES["newUpload"]["name"]);
 $uploadOk = 0;
 $localName = $target_file . '';
 
 if (isset($_POST["submit"])) {
+	echo "<p>Found post!</p>";
 	if ($_FILES["newUpload"]["error"] != 0) {
-		echo "Error uploading file: " . $_FILES["newUpload"]["error"] . "<br/>";
+		echo "<p>Error uploading file: " . $_FILES["newUpload"]["error"] . "</p>";
 	} else {
 		if (file_exists($target_file)) {
-			echo "File already exists";
+			echo "<p>File already exists</p>";
 		} else {
-			$uploadOk = 1;
+                        if (isBlacklistExtension(strtolower(pathinfo($_FILES["newUpload"]["name"], PATHINFO_EXTENSION)))) {
+                                echo "<p>File is not allowed</p>";
+                        } else {
+                                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                                $mime = finfo_file($finfo, $_FILES['newUpload']['tmp_name']);
+                                finfo_close($finfo);
+                                if (StartsWith($mime, 'text')) {
+                                    echo "<p>File is not allowed</p>";
+                                } else {
+                                    $uploadOk = 1;
+                                }
+                        }
 		}
 	}
 } else {
-	echo "You should not be here! <br/>";
+	echo "Error: No valid post";
 }
 
 if (isset($_POST["localName"])) {
 	$t = $_POST["localName"];
-	if (strlen($t) > 0) $localName = $t;
+	if (strlen($t) > 0) {
+            $localName = $t;
+        }
 }
 
 if ($uploadOk == 1) {
-	if (move_uploaded_file($_FILES["newUpload"]["tmp_name"], "$target_dir/$target_file")) {
-		echo "Uploaded file " . basename($_FILES["newUpload"]["name"]) . " has been uploaded.";
-		writeMeta($target_file, $localName);
+	if (move_uploaded_file($_FILES["newUpload"]["tmp_name"], $target_dir . $target_file)) {
+        echo "Uploaded file " . basename($_FILES["newUpload"]["name"]) . " has been saved.";
+        writeMeta($target_file, $localName);
+        header("Location: index.php");
 	} else {
 		echo "Error writing to file <br/>";
-		echo "$target_dir/$target_file";
+		echo $target_dir . $target_file;
 	}
-	header("Location: index.php");
 } else {
-	echo "File was not uploaded.";
-	header("Location: /index.php");
+        echo "<p>File was not uploaded</p>";
 }
-?>
+header("refresh:2;url=index.php");

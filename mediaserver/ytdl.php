@@ -1,5 +1,6 @@
 <?php
-include 'check.php';
+include 'service.php';
+include './prv/settings.php';
 
 if (isset($_POST['url'])) {
 	$url = $_POST['url'];
@@ -13,14 +14,11 @@ if (isset($_POST['url'])) {
 	if ($sa != "%(title)s") {
 		safestr($sa);
 	}
-    //Enter path to youtube-dl executable
-    passthru('/usr/local/bin/youtube-dl -o "/var/www/html/mediaserver/cache0/' . $sa . '.%(ext)s" ' . $url
-    
-    //Enable debug logging (enter log path)
-	//passthru('/usr/local/bin/youtube-dl -o "/var/www/html/mediaserver/cache0/' . $sa . '.%(ext)s" ' . $url . " > /var/www/html/mediaserver/log 2>&1 &");
+        $base = '!ytdl! -o "!cpath!!saveas!.%(ext)s" !geturl! &';
+        $c = str_replace(array('!ytdl!', '!cpath!', '!saveas!', '!geturl!'), array($path_ytdl, $cpath, $sa, $url), $base);
+        passthru($c);
 } else {
         echo "Error: No valid post";
 }
 
 header("Location: index.php");
-?>

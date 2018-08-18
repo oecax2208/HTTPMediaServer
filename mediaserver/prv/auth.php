@@ -1,10 +1,9 @@
 <?php
-
-    //Add your user accounts here AND change your passwords!
-	$uas = array('admin' => 'loginadmin', 'upload' => 'loginmedia', 'guest' => 'watchonline');
-    
-    //Change permissions below (see authentication types)
+	$uas = array('admin' => 'logmein', 'upload' => 'upload', 'guest' => 'guest');
 	$perms = array('admin' => 3, 'upload' => 2, 'guest' => 1);
+
+	$noAuth = '<p>Unauthorized (401) - Click <a href="/">here</a> to leave</p>';
+    $success = '<p id="success">Access granted to functions</p>';
 
 	//Return Values:
 	//-1: No authentication set
@@ -26,4 +25,3 @@
                 }
 		return -1;
 	}
-?>

@@ -1,12 +1,12 @@
 <?php
-include 'check.php';
+include 'service.php';
 
 if (isset($_POST["file"])) {
 	$file = $_POST["file"];
-	if (file_exists("./cache0/" . $file)) {
-		if (unlink("./cache0/" . $file)) {
+	if (file_exists($cpath . $file)) {
+		if (unlink($cpath . $file)) {
 			echo "<p>Deleted file " . $file . "</p>";
-			$md = "./cache0/metadata/" . $file . ".meta";
+			$md = $mpath . $file . ".meta";
 			if (file_exists($md)) {
 				if (unlink($md)) {
 					echo "<p>Removed metadata file " . $md . "</p>";
@@ -25,4 +25,3 @@ if (isset($_POST["file"])) {
 }
 
 header("Location: index.php");
-?>

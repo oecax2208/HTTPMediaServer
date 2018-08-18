@@ -1,11 +1,11 @@
 <?php
-include 'check.php';
+include 'service.php';
 
 if (isset($_POST['file'])) {
 	$file = $_POST['file'];
-	if (file_exists("./cache0/" . $file)) {
+	if (file_exists($cpath . $file)) {
 		echo "<p>Researching file " . $file . "</p>";
-		$mf = "./cache0/metadata/" . $file . ".meta";
+		$mf = $mpath . $file . ".meta";
 		if (file_exists($mf)) {
 			echo "<p>WARN: Found meta file already, it will be overwritten</p>";
 			writeMeta($file, _CNAME($mf));
@@ -21,4 +21,3 @@ if (isset($_POST['file'])) {
 }
 
 header("Location: index.php");
-?>

@@ -13,6 +13,12 @@
 * Download from multiple sites with [youtube-dl](https://github.com/rg3/youtube-dl) (Requires youtube-dl to be installed)
 * Use, copy, change, share without licence
 
+**Patches and Changes**
+* File checking before uploading
+* Better stability
+* All settings in one place
+* Broken less things
+
 **Note:**
 This "interface" is not as useful as other options when it comes to hosting files online, and potentially has security flaws in the PHP scripts which will be addressed in future updates, so use at your own risk!
 Depending on your hardware and use for the server, the process of uploading and modifying files may not be optimised for many devices at once, however streaming/downloading files is not moderated by scripts meaning anyone with a URL to a file can access it.
